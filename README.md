@@ -2,6 +2,8 @@
 
 An AI videographer that lives on your iPhone. Point the camera at yourself, talk to it, and it coaches your framing, monitors your take, and summarizes the session when you're done — all hands-free.
 
+Built with Expo SDK 52 and TypeScript as a native iOS development build — not Expo Go, because real-time speech recognition requires native APIs. Voice commands are processed entirely on-device using iOS SFSpeechRecognizer (via `expo-speech-recognition`), with no network calls or third-party AI services in the recognition loop. The camera pipeline runs through `expo-camera v16` with a custom composition analysis layer that evaluates face position, headroom, and backlight in real time. App state is managed with a strict one-directional state machine (Zustand) so voice commands only fire in the right context. TTS and STT are carefully interleaved — the microphone is muted while the app is speaking to prevent it from transcribing its own voice.
+
 ## What it does
 
 - **Composition check** — say "frame me" and VOICO tells you if your face is centered, too close, or backlit
