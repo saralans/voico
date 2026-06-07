@@ -10,6 +10,22 @@ class VoiceServiceImpl {
 
   private commandHandlers: Handler<VOICOCommand>[] = []
   private hesitationHandlers: Handler<string>[] = []
+  private speakDoneHandlers: (() => void)[] = []
+  private speakStartHandlers: (() => void)[] = []
+
+  onSpeakStart(handler: () => void): Unsubscribe {
+    this.speakStartHandlers.push(handler)
+    return () => {
+      this.speakStartHandlers = this.speakStartHandlers.filter((h) => h !== handler)
+    }
+  }
+
+  onSpeakDone(handler: () => void): Unsubscribe {
+    this.speakDoneHandlers.push(handler)
+    return () => {
+      this.speakDoneHandlers = this.speakDoneHandlers.filter((h) => h !== handler)
+    }
+  }
 
   onCommand(handler: Handler<VOICOCommand>): Unsubscribe {
     this.commandHandlers.push(handler)
@@ -28,15 +44,18 @@ class VoiceServiceImpl {
   speak(text: string): Promise<void> {
     return new Promise((resolve) => {
       this.isSpeaking = true
+      this.speakStartHandlers.forEach((h) => h())
       Speech.speak(text, {
         rate: 0.88,
         pitch: 1.0,
         onDone: () => {
           this.isSpeaking = false
+          this.speakDoneHandlers.forEach((h) => h())
           resolve()
         },
         onError: () => {
           this.isSpeaking = false
+          this.speakDoneHandlers.forEach((h) => h())
           resolve()
         },
       })
@@ -65,9 +84,11 @@ class VoiceServiceImpl {
 
   // Called by useVoice when STT produces a final result
   handleFinalTranscript(text: string) {
+    console.log('[VOICO] final transcript:', text, '| isSpeaking:', this.isSpeaking, '| handlers:', this.commandHandlers.length)
     if (this.isSpeaking) return
 
     const command = this.parseCommand(text)
+    console.log('[VOICO] parsed command:', command)
     if (command) {
       this.commandHandlers.forEach((h) => h(command))
       return

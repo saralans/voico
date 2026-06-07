@@ -53,11 +53,11 @@ function WaveBar({
         withSequence(
           withTiming(baseHeight * 1.6, {
             duration: 350 + delay,
-            easing: Easing.inOut(Easing.sine),
+            easing: Easing.inOut(Easing.sin),
           }),
           withTiming(baseHeight * 0.4, {
             duration: 350 + delay,
-            easing: Easing.inOut(Easing.sine),
+            easing: Easing.inOut(Easing.sin),
           }),
         ),
         -1,

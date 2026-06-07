@@ -61,12 +61,7 @@ export function CompositionOverlay({ faces, result, visible }: Props) {
         </View>
       )}
 
-      {/* ── No face detected ── */}
-      {faces.length === 0 && visible && (
-        <View style={styles.noFaceHint}>
-          <Text style={styles.noFaceText}>No face detected</Text>
-        </View>
-      )}
+      {/* Face detection removed — expo-camera v16 dropped onFacesDetected */}
 
     </Animated.View>
   )

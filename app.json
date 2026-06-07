@@ -11,13 +11,14 @@
       "bundleIdentifier": "com.voico.app",
       "infoPlist": {
         "NSCameraUsageDescription": "VOICO uses the camera to monitor your composition and focus.",
-        "NSMicrophoneUsageDescription": "VOICO listens for your voice commands and monitors audio.",
-        "NSSpeechRecognitionUsageDescription": "VOICO uses speech recognition to understand your commands."
+        "NSMicrophoneUsageDescription": "VOICO listens for your voice commands.",
+        "NSSpeechRecognitionUsageDescription": "VOICO uses speech recognition to understand your commands.",
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "plugins": [
       "expo-router",
-      "expo-face-detector",
+      "expo-dev-client",
       [
         "expo-camera",
         {
@@ -30,10 +31,19 @@
           "microphonePermission": "VOICO listens for your voice commands.",
           "speechRecognitionPermission": "VOICO uses speech recognition to understand your commands."
         }
-      ]
+      ],
+      "expo-asset"
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "3b2c623f-3de3-45e4-8a2c-611546f6ada5"
+      }
     }
   }
 }
