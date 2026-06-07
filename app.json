@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "VOICO",
+    "slug": "voico",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "voico",
+    "userInterfaceStyle": "dark",
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.voico.app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "VOICO uses the camera to monitor your composition and focus.",
+        "NSMicrophoneUsageDescription": "VOICO listens for your voice commands and monitors audio.",
+        "NSSpeechRecognitionUsageDescription": "VOICO uses speech recognition to understand your commands."
+      }
+    },
+    "plugins": [
+      "expo-router",
+      "expo-face-detector",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "VOICO uses the camera to monitor your composition and focus."
+        }
+      ],
+      [
+        "expo-speech-recognition",
+        {
+          "microphonePermission": "VOICO listens for your voice commands.",
+          "speechRecognitionPermission": "VOICO uses speech recognition to understand your commands."
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
