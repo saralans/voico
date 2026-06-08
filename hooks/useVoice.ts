@@ -55,7 +55,7 @@ export function useVoice() {
 
   useSpeechRecognitionEvent('error', (event) => {
     setIsListening(false)
-    console.warn('[VOICO] STT error:', event.error)
+    if (event.error !== 'no-speech') console.warn('[VOICO] STT error:', event.error)
     // On no-speech, treat last interim as final before restarting
     if (event.error === 'no-speech' && lastInterimRef.current && !VoiceService.isSpeaking) {
       VoiceService.handleFinalTranscript(lastInterimRef.current)

@@ -1,9 +1,14 @@
 import React, { useEffect } from 'react'
+import { LogBox } from 'react-native'
 import { Stack } from 'expo-router'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { useCameraPermissions } from 'expo-camera'
 import { ExpoSpeechRecognitionModule } from 'expo-speech-recognition'
 import { useAppStore } from '@/stores/appStore'
+
+LogBox.ignoreLogs([
+  'ExpoFaceDetector has been deprecated',
+])
 
 export default function RootLayout() {
   const [, requestCameraPermission] = useCameraPermissions()
