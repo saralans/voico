@@ -1,15 +1,12 @@
 import React from 'react'
 import { View, Text, StyleSheet, LayoutChangeEvent } from 'react-native'
 import { CameraView, useCameraPermissions } from 'expo-camera'
-import * as FaceDetector from 'expo-face-detector'
-import { DetectedFace } from '@/types/composition'
 
 interface Props {
-  onFacesDetected?: (faces: DetectedFace[]) => void
   onViewLayout?: (layout: { width: number; height: number }) => void
 }
 
-export function CameraPreview({ onFacesDetected, onViewLayout }: Props) {
+export function CameraPreview({ onViewLayout }: Props) {
   const [permission] = useCameraPermissions()
 
   function handleLayout(e: LayoutChangeEvent) {
@@ -35,18 +32,6 @@ export function CameraPreview({ onFacesDetected, onViewLayout }: Props) {
       style={StyleSheet.absoluteFill}
       facing="front"
       onLayout={handleLayout}
-      onFacesDetected={
-        onFacesDetected
-          ? (result) => onFacesDetected(result.faces as DetectedFace[])
-          : undefined
-      }
-      faceDetectorSettings={{
-        mode: FaceDetector.FaceDetectorMode.fast,
-        detectLandmarks: FaceDetector.FaceDetectorLandmarks.none,
-        runClassifications: FaceDetector.FaceDetectorClassifications.none,
-        minDetectionInterval: 200,
-        tracking: true,
-      }}
     />
   )
 }

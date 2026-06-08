@@ -131,7 +131,6 @@ export default function StudioScreen() {
       <StatusBar style="light" hidden />
 
       <CameraPreview
-        onFacesDetected={handleFacesDetected}
         onViewLayout={handleCameraLayout}
       />
 
